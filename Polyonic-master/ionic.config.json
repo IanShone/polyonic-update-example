@@ -1,0 +1,7 @@
+{
+  "name": "polyonic",
+  "integrations": {
+    "gulp": {}
+  },
+  "type": "ionic-angular"
+}
