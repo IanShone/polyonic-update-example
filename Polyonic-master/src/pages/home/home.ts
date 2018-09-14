@@ -16,4 +16,6 @@ export class HomePage {
     }
   }
 
+  appVersion = this.electron.remote.app.getVersion();
+
 }

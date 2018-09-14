@@ -3,6 +3,7 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
+const { autoUpdater } = require('electron-updater')
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 
@@ -35,6 +36,12 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+app.on('ready', function () {
+  autoUpdater.checkForUpdatesAndNotify()
+  console.log('Checking for update...')
+})
+
 app.on('ready', createWindow)
 
 app.on('window-all-closed', function () {

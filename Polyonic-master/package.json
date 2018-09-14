@@ -2,7 +2,7 @@
   "name": "polyonic",
   "productName": "Polyonic App",
   "description": "ionic2: An Ionic project",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": {
     "name": "Your Name",
     "email": "email@your-email.com",
@@ -24,7 +24,8 @@
     "ionic:watch": "ionic-app-scripts watch",
     "start": "npm run build && electron .",
     "release": "electron-builder --dir --config ./electron-build.json",
-    "dist": "electron-builder --config ./electron-build.json"
+    "dist": "electron-builder --config ./electron-build.json",
+    "publish": "build -p always"
   },
   "osx": {
     "build": "1",
@@ -74,12 +75,22 @@
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "electron-updater": "^3.1.2",
     "ionic-angular": "3.9.2",
     "ionicons": "4.4.3",
     "ngx-electron": "^1.0.4",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
+  },
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ianshone",
+        "repo": "polyonic-update-example"
+      }
+    ]
   },
   "cordova": {
     "plugins": {
