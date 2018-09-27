@@ -1,0 +1,30 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Update Status
+    </ion-title>
+    <ion-buttons start>
+      <button style="font-size: 25px" ion-button (click)="dismiss(false)">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item padding>
+    <!-- {{message}} -->
+
+    <p>
+      "Update has been downloaded. A restart is required for changes to take effect"
+    </p>
+
+    <p>Would you like to restart now?</p>
+
+    <button ion-button color="secondary" (click)="dismiss(true)">YES</button>
+    <button ion-button color="danger" (click)="dismiss(false)">NO</button>
+  </ion-item>
+
+</ion-content>
