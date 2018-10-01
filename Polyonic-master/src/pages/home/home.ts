@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ToastController } from 'ionic-angular';
+import { NavController, ModalController, ToastController, AlertController } from 'ionic-angular';
 import { ElectronService } from 'ngx-electron';
 
 import { UpdateModalPage } from '../update/updateModal';
@@ -11,9 +11,11 @@ import { UpdateModalPage } from '../update/updateModal';
 })
 export class HomePage {
 
+  public appStatus = ''
+
   updateStatus="Nothing happening here, Boss..."
 
-  constructor(public navCtrl: NavController, private electron: ElectronService, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private electron: ElectronService, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertCtrl:AlertController) {
     if (this.electron.isElectronApp) {
       console.log('Running Electron:', this.electron);
     } else {
@@ -21,10 +23,11 @@ export class HomePage {
     }
 
     this.electron.ipcRenderer.on('openUpdateModal', (event, message) => {
-      this.openUpdateModal(message)
+      this.presentConfirm(message)
     })
 
     this.electron.ipcRenderer.on('presentUpdateToast', (event, message) => {
+      this.updateStatus=message
       this.presentUpdateToast(message)
     })
 
@@ -35,14 +38,26 @@ export class HomePage {
 
   appVersion = null  
 
-  openUpdateModal(message) {
-    let modal = this.modalCtrl.create(UpdateModalPage, {message: message},);
-    modal.present();
-    modal.onDidDismiss(data => {
-      if(data==="restart"){
-        this.electron.ipcRenderer.send("quitAndInstall")
-      }
+  presentConfirm(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Download Complete',
+      message: 'A restart is needed for changes to apply. Would you like to restart now?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.electron.ipcRenderer.send("quitAndInstall")
+          }
+        }
+      ]
     });
+    alert.present();
   }
 
   async presentUpdateToast(message) {

@@ -49,7 +49,6 @@ app.on('activate', function () {
   }
 })
 
-// CALLED FROM THE CONSTRUCTOR OF THE HOME PAGE - ENSURES RENDERER IS READY
 ipcMain.on('update', function (event, data) {
   autoUpdater.checkForUpdates()
 })
@@ -58,9 +57,7 @@ ipcMain.on('quitAndInstall', function (event, data) {
   autoUpdater.quitAndInstall()
 })
 
-// AUTO UPDATER STATUS
 autoUpdater.on('checking-for-update', () => {
-  console.log('Checking for Updates from Main')
   mainWindow.webContents.send('presentUpdateToast', 'Checking for updates...')
 })
 
@@ -75,11 +72,6 @@ autoUpdater.on('update-available', (info) => {
 
 autoUpdater.on('update-not-available', (info) => {
   mainWindow.webContents.send('presentUpdateToast', 'You are running the latest version!')
-})
-
-autoUpdater.on('download-progress', (progressObj) => {
-  var downloadMessage = progressObj.percent + '%'
-  mainWindow.webContents.send('presentUpdateToast', downloadMessage)
 })
 
 autoUpdater.on('update-downloaded', (info) => {
