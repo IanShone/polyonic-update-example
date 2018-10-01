@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, ToastController, AlertController } from 'ionic-angular';
 import { ElectronService } from 'ngx-electron';
 
-import { UpdateModalPage } from '../update/updateModal';
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -12,8 +9,6 @@ import { UpdateModalPage } from '../update/updateModal';
 export class HomePage {
 
   public appStatus = ''
-
-  updateStatus="Nothing happening here, Boss..."
 
   constructor(public navCtrl: NavController, private electron: ElectronService, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertCtrl:AlertController) {
     if (this.electron.isElectronApp) {
