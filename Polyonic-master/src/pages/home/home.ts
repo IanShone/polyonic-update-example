@@ -27,7 +27,6 @@ export class HomePage {
     })
 
     this.electron.ipcRenderer.on('presentUpdateToast', (event, message) => {
-      this.updateStatus=message
       this.presentUpdateToast(message)
     })
 
